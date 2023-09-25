@@ -1,13 +1,8 @@
-import express from "express";
 import mongoose from "mongoose";
 import env from "./util/validateEnv";
+import app from './app';
 
-const app = express();
 const port = env.PORT;
-
-app.get("/", (req, res) => {
-  res.send("first endpoint");
-});
 
 mongoose
   .connect(env.MONGO_DB_CONNECTION_URL)
