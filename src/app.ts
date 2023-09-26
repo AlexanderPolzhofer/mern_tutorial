@@ -1,16 +1,18 @@
-import express from "express";
-import RecipeModel from "./model/recipe";
+import express, { NextFunction, Request, Response } from "express";
+import recipesRoutes from "./routes/recipesRouter";
 
 const app = express();
-app.get("/", async (req, res) => {
-  try {
-    const recipes = await RecipeModel.find().exec();
-    res.status(200).json(recipes);
-  } catch (error) {
-    let errorMessage = "An unexpected error occurred.";
-    if (error instanceof Error) errorMessage = error.message;
-    res.status(500).json({ error: errorMessage });
-  }
+
+app.use("/api/recipes", recipesRoutes);
+
+app.use((req, res, next) => {
+  next(Error("Endpoint not found"));
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
+  let errorMessage = "An unexpected error occurred.";
+  if (error instanceof Error) errorMessage = error.message;
+  res.status(500).json({ error: errorMessage });
+});
 export default app;
