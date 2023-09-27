@@ -32,7 +32,7 @@ export const getRecipes: RequestHandler = async (req, res, next) => {
   }
 };
 
-interface CreateRecipeBody {
+interface RecipeRequestBody {
   title?: string;
   levelOfDifficulty?: number;
   preparationTime?: number;
@@ -42,7 +42,7 @@ interface CreateRecipeBody {
 export const createRecipe: RequestHandler<
   unknown,
   unknown,
-  CreateRecipeBody,
+  RecipeRequestBody,
   unknown
 > = async (req, res, next) => {
   const title = req.body.title;
@@ -62,6 +62,43 @@ export const createRecipe: RequestHandler<
       ingredients,
     });
     res.status(201).json(newRecipe);
+  } catch (error) {
+    next(error);
+  }
+};
+
+interface RecipeRequestParams {
+  recipeId?: string;
+}
+
+export const updateRecipe: RequestHandler<
+  RecipeRequestParams,
+  unknown,
+  RecipeRequestBody,
+  unknown
+> = async (req, res, next) => {
+  try {
+    const recipeId = req.params.recipeId;
+    const newTitle = req.body.title;
+    const newLevelOfDifficulty = req.body.levelOfDifficulty;
+    const newPreparationTime = req.body.preparationTime;
+
+    if (!newTitle) {
+      throw createHttpError(400, "The recipe needs a title.");
+    }
+
+    const recipe = await RecipeModel.findById(recipeId).exec();
+
+    if (!recipe) {
+      throw createHttpError(404, "No recipe id found.");
+    }
+
+    recipe.title = newTitle;
+    recipe.levelOfDifficulty = newLevelOfDifficulty;
+    recipe.preparationTime = newPreparationTime;
+
+    const updatedRecipe = recipe.save();
+    res.status(200).json(updatedRecipe);
   } catch (error) {
     next(error);
   }

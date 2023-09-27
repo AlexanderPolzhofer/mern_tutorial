@@ -9,4 +9,6 @@ router.get("/:recipeId", RecipesController.getRecipe);
 
 router.post("/", RecipesController.createRecipe);
 
+router.patch("/:recipeId", RecipesController.updateRecipe);
+
 export default router;
