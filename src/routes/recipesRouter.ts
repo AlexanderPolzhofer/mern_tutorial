@@ -11,4 +11,6 @@ router.post("/", RecipesController.createRecipe);
 
 router.patch("/:recipeId", RecipesController.updateRecipe);
 
+router.delete("/:recipeId", RecipesController.deleteRecipe);
+
 export default router;
