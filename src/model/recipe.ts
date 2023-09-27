@@ -1,7 +1,5 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 
-const ingredientSchema = new Schema({ name: String, amount: Number });
-
 const recipeSchema = new Schema(
   {
     title: { type: String, required: true },
@@ -11,7 +9,7 @@ const recipeSchema = new Schema(
       max: 5,
     },
     preparationTime: Number,
-    ingredients: [ingredientSchema],
+    ingredients: [String],
     image: String,
   },
   { timestamps: true }
