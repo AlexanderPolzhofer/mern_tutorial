@@ -3,6 +3,8 @@ import recipesRoutes from "./routes/recipesRouter";
 
 const app = express();
 
+app.use(express.json());
+
 app.use("/api/recipes", recipesRoutes);
 
 app.use((req, res, next) => {

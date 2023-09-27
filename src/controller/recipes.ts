@@ -9,3 +9,22 @@ export const getRecipe: RequestHandler = async (req, res, next) => {
     next(error);
   }
 };
+
+export const createRecipe: RequestHandler = async (req, res, next) => {
+  const title = req.body.title;
+  const levelOfDifficulty = req.body.levelOfDifficulty;
+  const preparationTime = req.body.preparationTime;
+  const ingredients = req.body.ingredients;
+
+  try {
+    const newRecipe = await RecipeModel.create({
+      title,
+      levelOfDifficulty,
+      preparationTime,
+      ingredients,
+    });
+    res.status(201).json(newRecipe);
+  } catch (error) {
+    next(error);
+  }
+};
