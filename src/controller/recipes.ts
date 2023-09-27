@@ -2,6 +2,17 @@ import { RequestHandler } from "express";
 import RecipeModel from "../model/recipe";
 
 export const getRecipe: RequestHandler = async (req, res, next) => {
+  const recipeId = req.params.recipeId;
+
+  try {
+    const recipe = await RecipeModel.findById(recipeId).exec();
+    res.status(200).json(recipe);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getRecipes: RequestHandler = async (req, res, next) => {
   try {
     const recipes = await RecipeModel.find().exec();
     res.status(200).json(recipes);
