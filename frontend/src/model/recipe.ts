@@ -3,6 +3,7 @@ export interface Recipe {
   title: string;
   levelOfDifficulty?: number;
   preparationTime?: number;
+  ingredients?: string[];
   createdAt?: string;
   updatedAt?: string;
 }
