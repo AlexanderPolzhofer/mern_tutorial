@@ -1,7 +1,7 @@
 import React from "react";
 import { Recipe as RecipeModel } from "./model/recipe";
 import { loadRecipes } from "./util/loadRecipes";
-
+import { Recipe } from "./components/Recipe/Recipe";
 
 const App = () => {
   const [recipes, setRecipes] = React.useState<RecipeModel[]>([]);
@@ -11,7 +11,13 @@ const App = () => {
     loadRecipes(endpoint, "GET", setRecipes);
   }, []);
 
-  return <>{JSON.stringify(recipes)}</>;
+  return (
+    <>
+      {recipes.map((recipe) => (
+        <Recipe recipe={recipe} key={recipe._id} />
+      ))}
+    </>
+  );
 };
 
 export default App;
