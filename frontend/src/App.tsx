@@ -3,13 +3,13 @@ import { Recipe as RecipeModel } from "./model/recipe";
 import { loadRecipes } from "./util/loadRecipes";
 import { Recipe } from "./components/Recipe/Recipe";
 import * as Styled from "./components/GridOverview/GridOverview.style";
+import * as RecipesAPI from "./network/recipesApi";
 
 const App = () => {
   const [recipes, setRecipes] = React.useState<RecipeModel[]>([]);
-  const endpoint = "/api/recipes";
 
   React.useEffect(() => {
-    loadRecipes(endpoint, "GET", setRecipes);
+    loadRecipes(RecipesAPI.fetchRecipes, setRecipes);
   }, []);
 
   return (
