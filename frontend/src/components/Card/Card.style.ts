@@ -16,7 +16,7 @@ export const Card = styled.div`
   }
 `;
 
-export const Title = styled.h2`
+export const Title = styled.h3`
   display: flex;
   justify-content: center;
 `;

@@ -29,7 +29,7 @@ export const Recipe: React.FC<RecipeProps> = ({ recipe }) => (
       <u>Ingredients:</u>
     </Styled.Subheading>
     {recipe.ingredients!.map((ingredient) => (
-      <Styled.Ingredient>{ingredient}</Styled.Ingredient>
+      <Styled.Ingredient key={ingredient}>{ingredient}</Styled.Ingredient>
     ))}
   </Styled.Card>
 );
