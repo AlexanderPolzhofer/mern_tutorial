@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Colors } from "../../theme/colors";
 
 export const ModalContainer = styled.div`
   position: absolute;
@@ -16,17 +17,29 @@ export const ContentWrapper = styled.div`
 
 export const IconWrapper = styled.div`
   cursor: pointer;
+  color: ${Colors.Black};
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #dedede;
-  padding-bottom: 13px;
+  padding: 13px;
+`;
+
+export const HorizontalRule = styled.hr`
+  width: 95%;
+  color: ${Colors.Grey};
+  background-color: ${Colors.Grey};
+  border: none;
+  height: 1px;
 `;
 
 export const ModalTitle = styled.div`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${Colors.Black};
 `;
 
 export const ModalBody = styled.div`

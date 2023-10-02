@@ -21,8 +21,9 @@ export const Modal: React.FC<ModalProps> = ({ onClose, modalTitle }) => {
               <FontAwesomeIcon icon={faTimes} size="lg" />
             </Styled.IconWrapper>
           </Styled.ModalHeader>
+          <Styled.HorizontalRule />
           <Styled.ModalBody>
-            <Form />
+            <Form onCancel={onClose} />
           </Styled.ModalBody>
         </Styled.ContentWrapper>
       </Card>

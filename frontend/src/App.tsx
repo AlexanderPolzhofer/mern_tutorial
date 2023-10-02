@@ -5,7 +5,7 @@ import { Recipe } from "./components/Recipe/Recipe";
 import * as Styled from "./components/GridOverview/GridOverview.style";
 import * as RecipesAPI from "./network/recipesApi";
 import { Button } from "./components/Button/Button.style";
-import { Header } from "./components/Header/Header.style";
+import { Header, HeaderImage } from "./components/Header/Header.style";
 import { Modal } from "./components/Modal/Modal";
 
 const App = () => {
@@ -14,12 +14,12 @@ const App = () => {
 
   React.useEffect(() => {
     loadRecipes(RecipesAPI.fetchRecipes, setRecipes);
-  }, []);
+  }, [recipes]);
 
   return (
     <>
       <Header>
-        <p>family recipes</p>
+        <HeaderImage src="/family_icon.png" alt="image family of four" />
         <Button
           primaryColor="#28a745"
           secondaryColor="#fff"

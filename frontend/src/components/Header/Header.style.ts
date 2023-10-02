@@ -6,3 +6,7 @@ export const Header = styled.div`
   padding: 13px;
   border-bottom: 1px solid #dedede;
 `;
+
+export const HeaderImage = styled.img`
+  width: 50px;
+`;
