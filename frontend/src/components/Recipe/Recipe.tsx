@@ -3,14 +3,21 @@ import { Recipe as RecipeModel } from "./../../model/recipe";
 import * as Styled from "../Card/Card.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faClock } from "@fortawesome/free-regular-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 
 interface RecipeProps {
   recipe: RecipeModel;
+  handleDelete: () => void;
 }
 
-export const Recipe: React.FC<RecipeProps> = ({ recipe }) => (
+export const Recipe: React.FC<RecipeProps> = ({ recipe, handleDelete }) => (
   <Styled.Card>
-    <Styled.Title>{recipe.title}</Styled.Title>
+    <Styled.Title>
+      {recipe.title}
+      <Styled.InteractiveIcon>
+        <FontAwesomeIcon icon={faTrash} size="lg" onClick={handleDelete} />
+      </Styled.InteractiveIcon>
+    </Styled.Title>
     <Styled.IconInfoContainer>
       <Styled.Subheading>
         <u>level:</u>

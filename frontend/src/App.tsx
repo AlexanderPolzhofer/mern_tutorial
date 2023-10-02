@@ -16,6 +16,11 @@ const App = () => {
     loadRecipes(RecipesAPI.fetchRecipes, setRecipes);
   }, [recipes]);
 
+  const handleDelete = async (recipe: RecipeModel) => {
+    RecipesAPI.deleteRecipe(recipe._id!);
+    recipes.filter((recipeId) => recipeId._id !== recipe._id);
+  };
+
   return (
     <>
       <Header>
@@ -32,7 +37,11 @@ const App = () => {
       {!modalVisible && (
         <Styled.GridOverview>
           {recipes.map((recipe) => (
-            <Recipe recipe={recipe} key={recipe._id} />
+            <Recipe
+              recipe={recipe}
+              key={recipe._id}
+              handleDelete={() => handleDelete(recipe)}
+            />
           ))}
         </Styled.GridOverview>
       )}

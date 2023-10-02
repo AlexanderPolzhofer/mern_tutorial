@@ -35,3 +35,9 @@ export const createRecipe = async (
   });
   return response.json();
 };
+
+export const deleteRecipe = async (recipeId: string) => {
+  await fetchData(`api/recipes/${recipeId}`, {
+    method: "DELETE",
+  });
+};

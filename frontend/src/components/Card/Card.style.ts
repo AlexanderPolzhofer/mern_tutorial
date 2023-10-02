@@ -20,6 +20,8 @@ export const Card = styled.div`
 export const Title = styled.h3`
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 13px;
 `;
 
 export const Subheading = styled.h3`
@@ -41,4 +43,8 @@ export const IconInfoContainer = styled.div`
 
 export const IconWrapper = styled.div`
   padding: 5px;
+`;
+
+export const InteractiveIcon = styled.div`
+  cursor: pointer;
 `;
