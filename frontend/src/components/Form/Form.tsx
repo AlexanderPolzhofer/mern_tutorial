@@ -3,25 +3,31 @@ import * as Styled from "./Form.style";
 import { Button } from "../Button/Button.style";
 import { Colors } from "../../theme/colors";
 import * as NotesAPI from "../../network/recipesApi";
+import { Recipe as RecipeModel } from "../../model/recipe";
 
 interface FormProps {
   onCancel: () => void;
+  recipeToBeEdited?: RecipeModel;
 }
 
-const InitialValues = {
+const initialValues = {
+  _id: "",
   title: "",
   preparationTime: "",
   ingredients: [""],
 };
 
-export const Form: React.FC<FormProps> = ({ onCancel }) => {
-  const [newRecipe, setNewRecipe] =
-    React.useState<NotesAPI.CreateRecipeModel>(InitialValues);
+export const Form: React.FC<FormProps> = ({ onCancel, recipeToBeEdited }) => {
+  const [newRecipe, setNewRecipe] = React.useState<RecipeModel>(
+    recipeToBeEdited ?? initialValues
+  );
 
-  const handleSubmit = (recipe: NotesAPI.CreateRecipeModel) => {
-    //const ingredientsArray = recipe.ingredients.toString().trim().split(",");
-    // NotesAPI.createRecipe({ ...recipe, ingredients: ingredientsArray });
-    NotesAPI.createRecipe(recipe);
+  const handleSubmit = (recipe: RecipeModel) => {
+    if (recipe._id === initialValues._id) {
+      NotesAPI.createRecipe(recipe);
+    } else if (recipe._id === newRecipe._id) {
+      NotesAPI.updateRecipe(recipe);
+    }
   };
 
   return (

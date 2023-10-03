@@ -17,6 +17,7 @@ export const fetchRecipes = async (): Promise<RecipeModel[]> => {
 };
 
 export interface CreateRecipeModel {
+  _id?: string;
   title: string;
   preparationTime: string;
   ingredients: string[];
@@ -24,7 +25,7 @@ export interface CreateRecipeModel {
 }
 
 export const createRecipe = async (
-  recipe: CreateRecipeModel
+  recipe: RecipeModel
 ): Promise<RecipeModel> => {
   const response = await fetchData("api/recipes", {
     method: "POST",
@@ -40,4 +41,13 @@ export const deleteRecipe = async (recipeId: string) => {
   await fetchData(`api/recipes/${recipeId}`, {
     method: "DELETE",
   });
+};
+
+export const updateRecipe = async (recipe: RecipeModel) => {
+  const response = await fetchData(`api/recipes/${recipe._id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(recipe),
+  });
+  return response.json();
 };

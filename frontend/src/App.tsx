@@ -8,10 +8,20 @@ import { Button } from "./components/Button/Button.style";
 import { Header, HeaderImage } from "./components/Header/Header.style";
 import { Modal } from "./components/Modal/Modal";
 
+const recipeInitialState = {
+  _id: "",
+  title: "",
+  preparationTime: "",
+  ingredients: [""],
+  image: "",
+};
+
 const App = () => {
   const [recipes, setRecipes] = React.useState<RecipeModel[]>([]);
   const [modalVisible, setModalVisible] = React.useState(false);
 
+  const [recipeToBeEdited, setRecipeToBeEdited] =
+    React.useState<RecipeModel>(recipeInitialState);
   React.useEffect(() => {
     loadRecipes(RecipesAPI.fetchRecipes, setRecipes);
   }, [recipes]);
@@ -21,6 +31,11 @@ const App = () => {
     recipes.filter((recipeId) => recipeId._id !== recipe._id);
   };
 
+  const handleRecipeEdit = (recipe: RecipeModel) => {
+    setModalVisible(true);
+    setRecipeToBeEdited(recipe);
+  };
+
   return (
     <>
       <Header>
@@ -28,7 +43,10 @@ const App = () => {
         <Button
           primaryColor="#28a745"
           secondaryColor="#fff"
-          onClick={() => setModalVisible(true)}
+          onClick={() => {
+            setRecipeToBeEdited(recipeInitialState);
+            setModalVisible(true);
+          }}
         >
           Add new recipe
         </Button>
@@ -40,7 +58,8 @@ const App = () => {
             <Recipe
               recipe={recipe}
               key={recipe._id}
-              handleDelete={() => handleDelete(recipe)}
+              onDeleteRecipe={() => handleDelete(recipe)}
+              onHandleRecipeToBeEdited={handleRecipeEdit}
             />
           ))}
         </Styled.GridOverview>
@@ -49,6 +68,7 @@ const App = () => {
         <Modal
           modalTitle="Add new recipe"
           onClose={() => setModalVisible(false)}
+          recipeToBeEdited={recipeToBeEdited}
         />
       )}
     </>
