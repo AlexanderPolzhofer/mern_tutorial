@@ -12,8 +12,12 @@ export const Button = styled.button<ButtonProps>`
   background-color: ${({ primaryColor }) => primaryColor};
   border: ${({ primaryColor }) => primaryColor};
 
-  &:hover {
+  &:hover:enabled {
     cursor: pointer;
     opacity: 0.9;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;

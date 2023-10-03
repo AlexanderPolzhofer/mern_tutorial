@@ -18,9 +18,9 @@ export const fetchRecipes = async (): Promise<RecipeModel[]> => {
 
 export interface CreateRecipeModel {
   title: string;
-  levelOfDifficulty: number;
-  preparationTime: number;
+  preparationTime: string;
   ingredients: string[];
+  image?: string;
 }
 
 export const createRecipe = async (

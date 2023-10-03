@@ -34,9 +34,9 @@ export const getRecipes: RequestHandler = async (req, res, next) => {
 
 interface RecipeRequestBody {
   title?: string;
-  levelOfDifficulty?: number;
-  preparationTime?: number;
+  preparationTime?: string;
   ingredients?: string[];
+  image?: string;
 }
 
 export const createRecipe: RequestHandler<
@@ -46,9 +46,9 @@ export const createRecipe: RequestHandler<
   unknown
 > = async (req, res, next) => {
   const title = req.body.title;
-  const levelOfDifficulty = req.body.levelOfDifficulty;
   const preparationTime = req.body.preparationTime;
   const ingredients = req.body.ingredients;
+  const image = req.body.image;
 
   try {
     if (!title) {
@@ -57,9 +57,9 @@ export const createRecipe: RequestHandler<
 
     const newRecipe = await RecipeModel.create({
       title,
-      levelOfDifficulty,
       preparationTime,
       ingredients,
+      image,
     });
     res.status(201).json(newRecipe);
   } catch (error) {
@@ -80,8 +80,8 @@ export const updateRecipe: RequestHandler<
   try {
     const recipeId = req.params.recipeId;
     const newTitle = req.body.title;
-    const newLevelOfDifficulty = req.body.levelOfDifficulty;
     const newPreparationTime = req.body.preparationTime;
+    const newImage = req.body.image;
 
     if (!newTitle) {
       throw createHttpError(400, "The recipe needs a title.");
@@ -94,8 +94,8 @@ export const updateRecipe: RequestHandler<
     }
 
     recipe.title = newTitle;
-    recipe.levelOfDifficulty = newLevelOfDifficulty;
     recipe.preparationTime = newPreparationTime;
+    recipe.image = newImage;
 
     const updatedRecipe = recipe.save();
     res.status(200).json(updatedRecipe);

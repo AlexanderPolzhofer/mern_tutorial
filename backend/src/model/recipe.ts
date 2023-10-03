@@ -3,12 +3,7 @@ import { InferSchemaType, Schema, model } from "mongoose";
 const recipeSchema = new Schema(
   {
     title: { type: String, required: true },
-    levelOfDifficulty: {
-      type: Number,
-      min: 1,
-      max: 5,
-    },
-    preparationTime: Number,
+    preparationTime: String,
     ingredients: [String],
     image: String,
   },

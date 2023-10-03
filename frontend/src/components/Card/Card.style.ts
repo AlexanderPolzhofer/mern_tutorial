@@ -13,38 +13,6 @@ export const Card = styled.div`
   margin-bottom: 21px;
 
   &:hover {
-    box-shadow: 0.3px 0.5px 1.5px 2px ${Colors.DarkGrey};
+    box-shadow: 0.3px 0.5px 1.5px 2px ${Colors.Green};
   }
-`;
-
-export const Title = styled.h3`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 13px;
-`;
-
-export const Subheading = styled.h3`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Ingredient = styled.span`
-  display: flex;
-  justify-content: center;
-`;
-
-export const IconInfoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  column-gap: 13px;
-`;
-
-export const IconWrapper = styled.div`
-  padding: 5px;
-`;
-
-export const InteractiveIcon = styled.div`
-  cursor: pointer;
 `;

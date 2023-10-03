@@ -1,9 +1,9 @@
 export interface Recipe {
   _id?: string;
   title: string;
-  levelOfDifficulty?: number;
-  preparationTime?: number;
+  preparationTime?: string;
   ingredients?: string[];
+  image?: string;
   createdAt?: string;
   updatedAt?: string;
 }

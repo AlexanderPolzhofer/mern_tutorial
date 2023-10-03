@@ -10,8 +10,7 @@ interface FormProps {
 
 const InitialValues = {
   title: "",
-  levelOfDifficulty: 0,
-  preparationTime: 0,
+  preparationTime: "",
   ingredients: [""],
 };
 
@@ -20,8 +19,9 @@ export const Form: React.FC<FormProps> = ({ onCancel }) => {
     React.useState<NotesAPI.CreateRecipeModel>(InitialValues);
 
   const handleSubmit = (recipe: NotesAPI.CreateRecipeModel) => {
-    const ingredientsArray = recipe.ingredients.toString().trim().split(",");
-    NotesAPI.createRecipe({ ...recipe, ingredients: ingredientsArray });
+    //const ingredientsArray = recipe.ingredients.toString().trim().split(",");
+    // NotesAPI.createRecipe({ ...recipe, ingredients: ingredientsArray });
+    NotesAPI.createRecipe(recipe);
   };
 
   return (
@@ -46,25 +46,8 @@ export const Form: React.FC<FormProps> = ({ onCancel }) => {
         }
       />
       <Styled.FormControl
-        placeholder="Level of difficulty"
-        type="number"
-        min={0}
-        max={5}
-        required
-        name="levelOfDifficulty"
-        value={newRecipe.levelOfDifficulty}
-        onChange={(e) =>
-          setNewRecipe((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-          }))
-        }
-      />
-      <Styled.FormControl
         placeholder="Preparation time"
-        type="number"
-        min={0}
-        max={100}
+        type="text"
         required
         name="preparationTime"
         value={newRecipe.preparationTime}
@@ -88,6 +71,17 @@ export const Form: React.FC<FormProps> = ({ onCancel }) => {
           }))
         }
       />
+      <Styled.FormControl
+        placeholder="Do you want to add an image?"
+        type="file"
+        name="image"
+        onChange={(e) =>
+          setNewRecipe((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.files![0].name,
+          }))
+        }
+      />
       <Styled.ButtonContainer>
         <Button
           primaryColor={Colors.Red}
@@ -96,7 +90,15 @@ export const Form: React.FC<FormProps> = ({ onCancel }) => {
         >
           Cancel
         </Button>
-        <Button primaryColor={Colors.Green} secondaryColor={Colors.White}>
+        <Button
+          primaryColor={Colors.Green}
+          secondaryColor={Colors.White}
+          disabled={
+            !newRecipe.title ||
+            !newRecipe.preparationTime ||
+            !newRecipe.ingredients
+          }
+        >
           Submit
         </Button>
       </Styled.ButtonContainer>
