@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import recipesRoutes from "./routes/recipesRouter";
 import morgan from "morgan";
 import createHttpError, { isHttpError } from "http-errors";
+import userRouter from "./routes/userRouter";
 
 const app = express();
 
@@ -10,6 +11,8 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use("/api/recipes", recipesRoutes);
+
+app.use("/api/users", userRouter);
 
 app.use((req, res, next) => {
   next(createHttpError(404, "Endpoint not found"));
