@@ -7,3 +7,11 @@ export interface Recipe {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export const recipeInitialState = {
+  _id: "",
+  title: "",
+  preparationTime: "",
+  ingredients: [""],
+  image: "",
+};

@@ -11,6 +11,52 @@ const fetchData = async (input: RequestInfo, init?: RequestInit) => {
   }
 };
 
+interface UserModel {
+  userName: string;
+  email: string;
+  password: string;
+}
+
+interface LoginCredentials {
+  userName: string;
+  password: string;
+}
+
+export const signUp = async (
+  credentials: LoginCredentials
+): Promise<UserModel> => {
+  const response = await fetch("api/users/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
+  return response.json();
+};
+
+export const getUser = async (): Promise<UserModel> => {
+  const response = await fetch("api/users", { method: "GET" });
+  return response.json();
+};
+
+export const login = async (
+  credentials: LoginCredentials
+): Promise<UserModel> => {
+  const response = await fetch("api/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
+  return response.json();
+};
+
+export const logout = async () => {
+  await fetch("api/users/logout", { method: "POST" });
+};
+
 export const fetchRecipes = async (): Promise<RecipeModel[]> => {
   const response = await fetchData("api/recipes", { method: "GET" });
   return response.json();
