@@ -4,18 +4,23 @@ import { loadRecipes } from "./util/loadRecipes";
 import { Recipe } from "./components/Recipe/Recipe";
 import * as Styled from "./components/GridOverview/GridOverview.style";
 import * as RecipesAPI from "./network/recipesApi";
-import { Modal } from "./components/Modal/Modal";
+import { LoginModal, RecipeModal } from "./components/Modal/Modal";
 import { Navbar } from "./components/Navbar/Navbar";
+import { UserModel, userInitialValues } from "./model/user";
 
 const App = () => {
   const [recipes, setRecipes] = React.useState<RecipeModel[]>([]);
   const [modalVisible, setModalVisible] = React.useState(false);
-
   const [recipeToBeEdited, setRecipeToBeEdited] =
     React.useState<RecipeModel>(recipeInitialState);
+  const [user, setUser] = React.useState<UserModel>(userInitialValues);
+  const [loginModalVisible, setLoginModalVisible] = React.useState(false);
+
   React.useEffect(() => {
     loadRecipes(RecipesAPI.fetchRecipes, setRecipes);
   }, [recipes]);
+
+  React.useEffect(() => {}, []);
 
   const handleDelete = async (recipe: RecipeModel) => {
     RecipesAPI.deleteRecipe(recipe._id!);
@@ -32,6 +37,8 @@ const App = () => {
       <Navbar
         setRecipeToBeEdited={setRecipeToBeEdited}
         setModalVisible={setModalVisible}
+        setLoginModalVisible={setLoginModalVisible}
+        authenticatedUser={user}
       />
       {!modalVisible && (
         <Styled.GridOverview>
@@ -46,10 +53,18 @@ const App = () => {
         </Styled.GridOverview>
       )}
       {modalVisible && (
-        <Modal
+        <RecipeModal
           modalTitle="Add new recipe"
           onClose={() => setModalVisible(false)}
           recipeToBeEdited={recipeToBeEdited}
+        />
+      )}
+      {loginModalVisible && (
+        <LoginModal
+          onClose={() => setLoginModalVisible(false)}
+          modalTitle={"Login"}
+          user={user}
+          setUser={setUser}
         />
       )}
     </>

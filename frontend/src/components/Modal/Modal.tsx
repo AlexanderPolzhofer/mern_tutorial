@@ -6,14 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "../Form/Form";
 import { Recipe as RecipeModel } from "../../model/recipe";
+import { UserModel } from "../../model/user";
+import { LoginUserForm } from "../Form/LoginUserForm";
 
 interface ModalProps {
   onClose: () => void;
   modalTitle: string;
-  recipeToBeEdited: RecipeModel;
+  recipeToBeEdited?: RecipeModel;
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const RecipeModal: React.FC<ModalProps> = ({
   onClose,
   modalTitle,
   recipeToBeEdited,
@@ -37,3 +39,32 @@ export const Modal: React.FC<ModalProps> = ({
     </Styled.ModalContainer>
   );
 };
+
+interface LoginModalProps extends ModalProps {
+  user: UserModel;
+  setUser: React.Dispatch<React.SetStateAction<UserModel>>;
+}
+
+export const LoginModal: React.FC<LoginModalProps> = ({
+  modalTitle,
+  onClose,
+  user,
+  setUser,
+}) => (
+  <Styled.ModalContainer>
+    <Card>
+      <Styled.ContentWrapper>
+        <Styled.ModalHeader>
+          {modalTitle}
+          <Styled.IconWrapper onClick={onClose}>
+            <FontAwesomeIcon icon={faTimes} size="lg" />
+          </Styled.IconWrapper>
+        </Styled.ModalHeader>
+        <Styled.HorizontalRule />
+        <Styled.ModalBody>
+          <LoginUserForm onCancel={onClose} user={user} setUser={setUser} />
+        </Styled.ModalBody>
+      </Styled.ContentWrapper>
+    </Card>
+  </Styled.ModalContainer>
+);

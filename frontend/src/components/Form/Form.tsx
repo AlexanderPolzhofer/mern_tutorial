@@ -97,6 +97,7 @@ export const Form: React.FC<FormProps> = ({ onCancel, recipeToBeEdited }) => {
           Cancel
         </Button>
         <Button
+          type="submit"
           primaryColor={Colors.Green}
           secondaryColor={Colors.White}
           disabled={
