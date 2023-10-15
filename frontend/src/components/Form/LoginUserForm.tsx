@@ -1,32 +1,29 @@
 import React from "react";
 import * as Styled from "./Form.style";
-import * as RecipesAPI from "./../../network/recipesApi";
-import { UserModel } from "../../model/user";
+import { UserModel, userInitialValues } from "../../model/user";
 import { Button } from "../Button/Button.style";
 import { Colors } from "../../theme/colors";
 
 interface LoginUserFormProps {
-  user: UserModel;
-  setUser: React.Dispatch<React.SetStateAction<UserModel>>;
   onCancel: () => void;
+  onHandleLogin: (userRes: UserModel) => Promise<void>;
 }
 
 export const LoginUserForm: React.FC<LoginUserFormProps> = ({
-  user,
-  setUser,
   onCancel,
+  onHandleLogin,
 }) => {
-  const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>,
-    user: UserModel
-  ) => {
-    e.preventDefault();
-    RecipesAPI.login(user);
-    onCancel();
-  };
+  const [user, setUser] = React.useState<UserModel>(userInitialValues);
 
   return (
-    <Styled.FormGroup onSubmit={(e) => handleSubmit(e, user)}>
+    <Styled.FormGroup
+      onSubmit={(e) => {
+        e.preventDefault();
+        onHandleLogin(user);
+        setUser(userInitialValues);
+        onCancel();
+      }}
+    >
       <Styled.FormControl
         placeholder="Username"
         type="text"

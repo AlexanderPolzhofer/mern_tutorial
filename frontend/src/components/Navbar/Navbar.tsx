@@ -5,31 +5,43 @@ import { Button } from "../Button/Button.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { Colors } from "../../theme/colors";
-import { UserModel } from "../../model/user";
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 interface NavbarProps {
   setRecipeToBeEdited: (value: React.SetStateAction<RecipeModel>) => void;
   setModalVisible: (value: React.SetStateAction<boolean>) => void;
   setLoginModalVisible: (value: React.SetStateAction<boolean>) => void;
-  authenticatedUser: UserModel;
+  userAuthenticated: boolean;
+  setUserAuthenticated: (value: React.SetStateAction<boolean>) => void;
+  handleLogout: () => Promise<void>;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   setRecipeToBeEdited,
   setModalVisible,
   setLoginModalVisible,
-  authenticatedUser,
+  userAuthenticated,
+  setUserAuthenticated,
+  handleLogout,
 }) => (
   <Styled.Header>
     <Styled.HeaderImage src="/family_icon.png" alt="image family of four" />
     <Styled.NavElementsContainer>
-      {authenticatedUser.userName.length > 0 ? (
-        authenticatedUser.userName
+      {userAuthenticated ? (
+        <Styled.InteractivityWrapper
+          onClick={() => {
+            handleLogout();
+            setUserAuthenticated(false);
+          }}
+        >
+          <FontAwesomeIcon icon={faSignOut} color={Colors.DarkGrey} size="lg" />
+        </Styled.InteractivityWrapper>
       ) : (
         <Styled.InteractivityWrapper onClick={() => setLoginModalVisible(true)}>
           <FontAwesomeIcon icon={faUser} color={Colors.DarkGrey} size="lg" />
         </Styled.InteractivityWrapper>
       )}
+
       <Styled.VerticalLine />
       <Button
         primaryColor="#28a745"
