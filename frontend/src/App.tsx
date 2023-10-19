@@ -51,7 +51,7 @@ const App = () => {
         setUserAuthenticated={setUserAuthenticated}
         handleLogout={handleLogout}
       />
-      {!modalVisible && (
+      {!modalVisible && userAuthenticated ? (
         <Styled.GridOverview>
           {recipes.map((recipe) => (
             <Recipe
@@ -62,19 +62,17 @@ const App = () => {
             />
           ))}
         </Styled.GridOverview>
+      ) : (
+        <LoginModal
+          modalTitle={"Login"}
+          onHandleLogin={handleLogin}
+        />
       )}
       {modalVisible && (
         <RecipeModal
           modalTitle="Add new recipe"
           onClose={() => setModalVisible(false)}
           recipeToBeEdited={recipeToBeEdited}
-        />
-      )}
-      {loginModalVisible && (
-        <LoginModal
-          onClose={() => setLoginModalVisible(false)}
-          modalTitle={"Login"}
-          onHandleLogin={handleLogin}
         />
       )}
     </>

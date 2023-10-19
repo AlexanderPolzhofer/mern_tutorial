@@ -5,7 +5,7 @@ import { Button } from "../Button/Button.style";
 import { Colors } from "../../theme/colors";
 
 interface LoginUserFormProps {
-  onCancel: () => void;
+  onCancel?: () => void;
   onHandleLogin: (userRes: UserModel) => Promise<void>;
 }
 
@@ -21,7 +21,7 @@ export const LoginUserForm: React.FC<LoginUserFormProps> = ({
         e.preventDefault();
         onHandleLogin(user);
         setUser(userInitialValues);
-        onCancel();
+        onCancel && onCancel();
       }}
     >
       <Styled.FormControl
@@ -51,17 +51,20 @@ export const LoginUserForm: React.FC<LoginUserFormProps> = ({
         }
       />
       <Styled.ButtonContainer>
-        <Button
-          primaryColor={Colors.Red}
-          secondaryColor={Colors.White}
-          onClick={onCancel}
-        >
-          Cancel
-        </Button>
+        {onCancel && (
+          <Button
+            primaryColor={Colors.Red}
+            secondaryColor={Colors.White}
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
+        )}
         <Button
           type="submit"
           primaryColor={Colors.Green}
           secondaryColor={Colors.White}
+          disabled={!user.userName || !user.password}
         >
           Submit
         </Button>

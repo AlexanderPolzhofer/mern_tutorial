@@ -11,7 +11,7 @@ import { LoginUserForm } from "../Form/LoginUserForm";
 import { UserModel } from "../../model/user";
 
 interface ModalProps {
-  onClose: () => void;
+  onClose?: () => void;
   modalTitle: string;
   recipeToBeEdited?: RecipeModel;
 }
@@ -55,9 +55,11 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       <Styled.ContentWrapper>
         <Styled.ModalHeader>
           {modalTitle}
-          <Styled.IconWrapper onClick={onClose}>
-            <FontAwesomeIcon icon={faTimes} size="lg" />
-          </Styled.IconWrapper>
+          {onClose && (
+            <Styled.IconWrapper onClick={onClose}>
+              <FontAwesomeIcon icon={faTimes} size="lg" />
+            </Styled.IconWrapper>
+          )}
         </Styled.ModalHeader>
         <Styled.HorizontalRule />
         <Styled.ModalBody>

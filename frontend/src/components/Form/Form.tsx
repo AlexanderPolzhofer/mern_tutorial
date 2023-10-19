@@ -6,7 +6,7 @@ import * as NotesAPI from "../../network/recipesApi";
 import { Recipe as RecipeModel } from "../../model/recipe";
 
 interface FormProps {
-  onCancel: () => void;
+  onCancel?: () => void;
   recipeToBeEdited?: RecipeModel;
 }
 
@@ -35,7 +35,7 @@ export const Form: React.FC<FormProps> = ({ onCancel, recipeToBeEdited }) => {
       onSubmit={(e) => {
         handleSubmit(newRecipe);
         e.preventDefault();
-        onCancel();
+        onCancel && onCancel();
       }}
     >
       <Styled.FormControl

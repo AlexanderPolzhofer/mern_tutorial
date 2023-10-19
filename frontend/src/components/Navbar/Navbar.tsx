@@ -28,31 +28,36 @@ export const Navbar: React.FC<NavbarProps> = ({
     <Styled.HeaderImage src="/family_icon.png" alt="image family of four" />
     <Styled.NavElementsContainer>
       {userAuthenticated ? (
-        <Styled.InteractivityWrapper
-          onClick={() => {
-            handleLogout();
-            setUserAuthenticated(false);
-          }}
-        >
-          <FontAwesomeIcon icon={faSignOut} color={Colors.DarkGrey} size="lg" />
-        </Styled.InteractivityWrapper>
+        <>
+          <Button
+            primaryColor="#28a745"
+            secondaryColor="#fff"
+            onClick={() => {
+              setRecipeToBeEdited(recipeInitialState);
+              setModalVisible(true);
+            }}
+          >
+            Add new recipe
+          </Button>
+          <Styled.VerticalLine />
+          <Styled.InteractivityWrapper
+            onClick={() => {
+              handleLogout();
+              setUserAuthenticated(false);
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faSignOut}
+              color={Colors.DarkGrey}
+              size="lg"
+            />
+          </Styled.InteractivityWrapper>
+        </>
       ) : (
         <Styled.InteractivityWrapper onClick={() => setLoginModalVisible(true)}>
           <FontAwesomeIcon icon={faUser} color={Colors.DarkGrey} size="lg" />
         </Styled.InteractivityWrapper>
       )}
-
-      <Styled.VerticalLine />
-      <Button
-        primaryColor="#28a745"
-        secondaryColor="#fff"
-        onClick={() => {
-          setRecipeToBeEdited(recipeInitialState);
-          setModalVisible(true);
-        }}
-      >
-        Add new recipe
-      </Button>
     </Styled.NavElementsContainer>
   </Styled.Header>
 );
