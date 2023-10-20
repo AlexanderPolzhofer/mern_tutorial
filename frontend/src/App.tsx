@@ -63,10 +63,7 @@ const App = () => {
           ))}
         </Styled.GridOverview>
       ) : (
-        <LoginModal
-          modalTitle={"Login"}
-          onHandleLogin={handleLogin}
-        />
+        <LoginModal modalTitle={"Login"} onHandleLogin={handleLogin} />
       )}
       {modalVisible && (
         <RecipeModal
