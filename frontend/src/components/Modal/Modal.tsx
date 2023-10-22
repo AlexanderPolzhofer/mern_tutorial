@@ -42,7 +42,7 @@ export const RecipeModal: React.FC<ModalProps> = ({
 };
 
 interface LoginModalProps extends ModalProps {
-  onHandleLogin: (userRes: UserModel) => Promise<void>;
+  onHandleLogin?: (userRes: UserModel) => Promise<void>;
 }
 
 export const LoginModal: React.FC<LoginModalProps> = ({
@@ -63,7 +63,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         </Styled.ModalHeader>
         <Styled.HorizontalRule />
         <Styled.ModalBody>
-          <LoginUserForm onCancel={onClose} onHandleLogin={onHandleLogin} />
+          <LoginUserForm onCancel={onClose} onHandleLogin={onHandleLogin} modalTitle={modalTitle}/>
         </Styled.ModalBody>
       </Styled.ContentWrapper>
     </Card>

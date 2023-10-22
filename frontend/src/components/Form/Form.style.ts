@@ -24,4 +24,5 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   column-gap: 8px;
+  padding-right: 0.5rem;
 `;

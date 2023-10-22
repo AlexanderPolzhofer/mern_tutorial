@@ -6,21 +6,24 @@ import { Colors } from "../../theme/colors";
 
 interface LoginUserFormProps {
   onCancel?: () => void;
-  onHandleLogin: (userRes: UserModel) => Promise<void>;
+  onHandleLogin?: (userRes: UserModel) => Promise<void>;
+  modalTitle?: string;
 }
 
 export const LoginUserForm: React.FC<LoginUserFormProps> = ({
   onCancel,
-  onHandleLogin,
+  modalTitle,
 }) => {
-  const [user, setUser] = React.useState<UserModel>(userInitialValues);
+  const [loginUser, setLoginUser] =
+    React.useState<UserModel>(userInitialValues);
 
   return (
     <Styled.FormGroup
       onSubmit={(e) => {
         e.preventDefault();
-        onHandleLogin(user);
-        setUser(userInitialValues);
+
+        setLoginUser(userInitialValues);
+
         onCancel && onCancel();
       }}
     >
@@ -29,22 +32,37 @@ export const LoginUserForm: React.FC<LoginUserFormProps> = ({
         type="text"
         required
         name="userName"
-        value={user.userName}
+        value={loginUser.userName}
         onChange={(e) =>
-          setUser((prevState) => ({
+          setLoginUser((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
           }))
         }
       />
+      {modalTitle === "Sign up" && (
+        <Styled.FormControl
+          placeholder="Email"
+          type="text"
+          required
+          name="email"
+          value={loginUser.email}
+          onChange={(e) =>
+            setLoginUser((prevState) => ({
+              ...prevState,
+              [e.target.name]: e.target.value,
+            }))
+          }
+        />
+      )}
       <Styled.FormControl
         placeholder="Password"
         type="password"
         required
         name="password"
-        value={user.password}
+        value={loginUser.password}
         onChange={(e) =>
-          setUser((prevState) => ({
+          setLoginUser((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
           }))
@@ -64,9 +82,9 @@ export const LoginUserForm: React.FC<LoginUserFormProps> = ({
           type="submit"
           primaryColor={Colors.Green}
           secondaryColor={Colors.White}
-          disabled={!user.userName || !user.password}
+          disabled={!loginUser.userName || !loginUser.password}
         >
-          Submit
+          {modalTitle ?? "Submit"}
         </Button>
       </Styled.ButtonContainer>
     </Styled.FormGroup>
