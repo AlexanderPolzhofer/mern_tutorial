@@ -12,6 +12,6 @@ export const ErrorPageContainer = styled.div`
 
 export const ErrorMessage = styled.p`
   font-weight: 700;
-  font-size: 28px;
+  font-size: 21px;
   color: ${Colors.DarkGrey};
 `;

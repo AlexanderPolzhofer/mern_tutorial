@@ -8,8 +8,7 @@ export const ErrorBoundary: React.FC = () => (
   <Styled.ErrorPageContainer>
     <FontAwesomeIcon icon={faCoffee} color={Colors.Grey} size="xl" />
     <Styled.ErrorMessage>
-      Something went wrong. An unexpected error occurs. Grab a coffee and try
-      again later.
+      Oops, an unexpected error occured. Grab a coffee and try again later.
     </Styled.ErrorMessage>
   </Styled.ErrorPageContainer>
 );

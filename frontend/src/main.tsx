@@ -1,21 +1,30 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import "./main.css";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
+import { NavbarWrapper } from "./pages/NavbarWrapper/NavbarWrapper.tsx";
+import { Home } from "./pages/Home/Home.tsx";
+import { LoginModal } from "./components/Modal/Modal.tsx";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary.tsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    loader: undefined,
-    errorElement: <ErrorBoundary />,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route element={<NavbarWrapper />}>
+        <Route element={<Home />} path="/" />
+        <Route element={<App />} path="/recipes" />
+        <Route element={<LoginModal modalTitle="Login" />} path="/login" />
+      </Route>
+      <Route element={<ErrorBoundary />} path="*" />
+    </>
+  )
+);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <RouterProvider router={router} />
 );
