@@ -1,11 +1,5 @@
-export interface UserModel {
-  userName: string;
-  email?: string;
-  password: string;
-}
-
 export const userInitialValues = {
+  _id: "",
   userName: "",
   email: "",
-  password: "",
 };

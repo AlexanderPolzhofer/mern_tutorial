@@ -12,13 +12,13 @@ import { faUtensils } from "@fortawesome/free-solid-svg-icons/faUtensils";
 interface RecipeProps {
   recipe: RecipeModel;
   onDeleteRecipe: () => void;
-  onHandleRecipeToBeEdited: (recipe: RecipeModel) => void;
+  onHandleUpdateRecipe: (recipe: RecipeModel) => void;
 }
 
 export const Recipe: React.FC<RecipeProps> = ({
   recipe,
   onDeleteRecipe,
-  onHandleRecipeToBeEdited,
+  onHandleUpdateRecipe,
 }) => (
   <Card>
     {recipe.image ? (
@@ -43,7 +43,7 @@ export const Recipe: React.FC<RecipeProps> = ({
           <FontAwesomeIcon
             icon={faPenToSquare}
             size="lg"
-            onClick={() => onHandleRecipeToBeEdited(recipe)}
+            onClick={() => onHandleUpdateRecipe(recipe)}
             color={Colors.DarkGrey}
           />
         </Styled.InteractiveIconWrapper>

@@ -1,14 +1,12 @@
 import React from "react";
 import * as Styled from "./Modal.style";
-
 import { Card } from "../Card/Card.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "../Form/Form";
 import { Recipe as RecipeModel } from "../../model/recipe";
-
 import { LoginUserForm } from "../Form/LoginUserForm";
-import { UserModel } from "../../model/user";
+import { UserData } from "../../context/UserContext";
 
 interface ModalProps {
   onClose?: () => void;
@@ -42,13 +40,12 @@ export const RecipeModal: React.FC<ModalProps> = ({
 };
 
 interface LoginModalProps extends ModalProps {
-  onHandleLogin?: (userRes: UserModel) => Promise<void>;
+  onHandleLogin?: (userRes: UserData) => Promise<void>;
 }
 
 export const LoginModal: React.FC<LoginModalProps> = ({
   modalTitle,
   onClose,
-  onHandleLogin,
 }) => (
   <Styled.ModalContainer>
     <Card>
@@ -63,7 +60,10 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         </Styled.ModalHeader>
         <Styled.HorizontalRule />
         <Styled.ModalBody>
-          <LoginUserForm onCancel={onClose} onHandleLogin={onHandleLogin} modalTitle={modalTitle}/>
+          <LoginUserForm
+            onCancel={onClose}
+            modalTitle={modalTitle}
+          />
         </Styled.ModalBody>
       </Styled.ContentWrapper>
     </Card>

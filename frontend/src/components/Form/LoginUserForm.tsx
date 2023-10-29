@@ -1,12 +1,13 @@
 import React from "react";
 import * as Styled from "./Form.style";
-import { UserModel, userInitialValues } from "../../model/user";
 import { Button } from "../Button/Button.style";
 import { Colors } from "../../theme/colors";
+import { useCurrentUserContext } from "../../context/UserContext";
+import * as RecipesAPI from "./../../network/recipesApi";
+import { useNavigate } from "react-router-dom";
 
 interface LoginUserFormProps {
   onCancel?: () => void;
-  onHandleLogin?: (userRes: UserModel) => Promise<void>;
   modalTitle?: string;
 }
 
@@ -14,16 +15,31 @@ export const LoginUserForm: React.FC<LoginUserFormProps> = ({
   onCancel,
   modalTitle,
 }) => {
-  const [loginUser, setLoginUser] =
-    React.useState<UserModel>(userInitialValues);
+  const [loginUser, setLoginUser] = React.useState<{
+    userName: string;
+    password: string;
+  }>({ userName: "", password: "" });
+
+  const { setUser } = useCurrentUserContext();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (userCredentials: {
+    userName: string;
+    password: string;
+  }) => {
+    const response = await RecipesAPI.login(userCredentials);
+
+    if (response !== null) {
+      setUser({ _id: response._id, userName: response.userName });
+      navigate("/recipes");
+    }
+  };
 
   return (
     <Styled.FormGroup
       onSubmit={(e) => {
         e.preventDefault();
-
-        setLoginUser(userInitialValues);
-
+        handleSubmit(loginUser);
         onCancel && onCancel();
       }}
     >
@@ -40,21 +56,6 @@ export const LoginUserForm: React.FC<LoginUserFormProps> = ({
           }))
         }
       />
-      {modalTitle === "Sign up" && (
-        <Styled.FormControl
-          placeholder="Email"
-          type="text"
-          required
-          name="email"
-          value={loginUser.email}
-          onChange={(e) =>
-            setLoginUser((prevState) => ({
-              ...prevState,
-              [e.target.name]: e.target.value,
-            }))
-          }
-        />
-      )}
       <Styled.FormControl
         placeholder="Password"
         type="password"
@@ -82,7 +83,6 @@ export const LoginUserForm: React.FC<LoginUserFormProps> = ({
           type="submit"
           primaryColor={Colors.Green}
           secondaryColor={Colors.White}
-          disabled={!loginUser.userName || !loginUser.password}
         >
           {modalTitle ?? "Submit"}
         </Button>

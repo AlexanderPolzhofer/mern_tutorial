@@ -15,7 +15,7 @@ export const GridOverview = styled.div`
   }
 
   @media screen and (max-width: ${Breakpoints.xs}) {
-    grid-template-columns: repeat(1, 333px);
+    grid-template-columns: repeat(1, 233px);
   }
 
   @media screen and (min-width: ${Breakpoints.lg}) {

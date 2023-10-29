@@ -1,17 +1,22 @@
 import React from "react";
 import { LoginUserForm } from "../../components/Form/LoginUserForm";
 import * as Styled from "./Home.style";
-import { UserModel } from "../../model/user";
+import {} from "../../model/user";
+import { useCurrentUserContext } from "../../context/UserContext";
+import { RecipesOverviewMapper } from "../RecipesOverviewMapper/RecipesOverviewMapper";
 
-interface HomeProps {
-  onHandleLogin?: (userCredentials: UserModel) => Promise<void>;
-}
+export const Home: React.FC = () => {
+  const { user } = useCurrentUserContext();
 
-export const Home: React.FC<HomeProps> = ({ onHandleLogin }) => (
-  <Styled.FormContainter>
-    <Styled.FormGroup>
-      <h2>Login</h2>
-      <LoginUserForm modalTitle="Login" onHandleLogin={onHandleLogin} />
-    </Styled.FormGroup>
-  </Styled.FormContainter>
-);
+  return (
+    <>
+      <Styled.FormContainter>
+        <Styled.FormGroup>
+          <h2>Login</h2>
+          <LoginUserForm modalTitle="Login" />
+        </Styled.FormGroup>
+      </Styled.FormContainter>
+      {user && <RecipesOverviewMapper />}
+    </>
+  );
+};

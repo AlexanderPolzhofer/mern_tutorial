@@ -1,3 +1,4 @@
+import { UserData } from "../context/UserContext";
 import { Recipe as RecipeModel } from "../model/recipe";
 
 const fetchData = async (input: RequestInfo, init?: RequestInit) => {
@@ -11,19 +12,13 @@ const fetchData = async (input: RequestInfo, init?: RequestInit) => {
   }
 };
 
-interface UserModel {
+export interface UserModel {
+  _id: string;
   userName: string;
-  email: string;
-  password: string;
-}
-
-interface LoginCredentials {
-  userName: string;
-  password: string;
 }
 
 export const signUp = async (
-  credentials: LoginCredentials
+  credentials: UserData
 ): Promise<UserModel> => {
   const response = await fetch("api/users/signup", {
     method: "POST",
@@ -41,7 +36,7 @@ export const getUser = async (): Promise<UserModel> => {
 };
 
 export const login = async (
-  credentials: LoginCredentials
+  credentials: UserData
 ): Promise<UserModel> => {
   const response = await fetch("api/users/login", {
     method: "POST",

@@ -1,8 +1,10 @@
 import React from "react";
 
 export interface UserData {
-  _id: string;
+  _id?: string;
   userName: string;
+  password?: string;
+  email?: string;
 }
 
 export type UserContextType = {
